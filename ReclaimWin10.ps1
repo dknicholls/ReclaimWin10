@@ -39,9 +39,9 @@ Set-ItemProperty -Path "HKLM:\Software\Microsoft\PolicyManager\default\WiFi\Allo
 # Set-ItemProperty -Path "HKLM:\Software\Microsoft\PolicyManager\default\WiFi\AllowAutoConnectToWiFiSenseHotspots" -Name "Value" -Type DWord -Value 1
 
 # Disable SmartScreen Filter
-# Write-Host "Disabling SmartScreen Filter..."
-# Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Explorer" -Name "SmartScreenEnabled" -Type String -Value "Off"
-# Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\AppHost" -Name "EnableWebContentEvaluation" -Type DWord -Value 0
+ Write-Host "Disabling SmartScreen Filter..."
+ Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Explorer" -Name "SmartScreenEnabled" -Type String -Value "Off"
+ Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\AppHost" -Name "EnableWebContentEvaluation" -Type DWord -Value 0
 
 # Enable SmartScreen Filter
 # Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Explorer" -Name "SmartScreenEnabled" -Type String -Value "RequireAdmin"
@@ -207,11 +207,11 @@ New-ItemProperty -path $registryPath -name HibernateEnabled -value 1 -PropertyTy
 # Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows Defender" -Name "DisableAntiSpyware"
 
 # Disable Windows Update automatic restart
-Write-Host "Disabling Windows Update automatic restart..."
-Set-ItemProperty -Path "HKLM:\Software\Microsoft\WindowsUpdate\UX\Settings" -Name "UxOption" -Type DWord -Value 1
+# Write-Host "Disabling Windows Update automatic restart..."
+# Set-ItemProperty -Path "HKLM:\Software\Microsoft\WindowsUpdate\UX\Settings" -Name "UxOption" -Type DWord -Value 1
 
 # Enable Windows Update automatic restart
-# Set-ItemProperty -Path "HKLM:\Software\Microsoft\WindowsUpdate\UX\Settings" -Name "UxOption" -Type DWord -Value 0
+Set-ItemProperty -Path "HKLM:\Software\Microsoft\WindowsUpdate\UX\Settings" -Name "UxOption" -Type DWord -Value 0
 
 # Stop and disable Home Groups services
 Write-Host "Stopping and disabling Home Groups services..."
@@ -226,8 +226,8 @@ Set-Service "HomeGroupProvider" -StartupType Disabled
 # Start-Service "HomeGroupProvider"
 
 # Disable Remote Assistance
-# Write-Host "Disabling Remote Assistance..."
-# Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Remote Assistance" -Name "fAllowToGetHelp" -Type DWord -Value 0
+Write-Host "Disabling Remote Assistance..."
+Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Remote Assistance" -Name "fAllowToGetHelp" -Type DWord -Value 0
 
 # Enable Remote Assistance
 # Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Remote Assistance" -Name "fAllowToGetHelp" -Type DWord -Value 1
@@ -238,8 +238,8 @@ Set-Service "HomeGroupProvider" -StartupType Disabled
 # Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" -Name "UserAuthentication" -Type DWord -Value 0
 
 # Disable Remote Desktop
-# Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server" -Name "fDenyTSConnections" -Type DWord -Value 1
-# Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" -Name "UserAuthentication" -Type DWord -Value 1
+Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server" -Name "fDenyTSConnections" -Type DWord -Value 1
+Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" -Name "UserAuthentication" -Type DWord -Value 1
 
 
 
@@ -248,23 +248,23 @@ Set-Service "HomeGroupProvider" -StartupType Disabled
 ##########
 
 # Disable Action Center
-# Write-Host "Disabling Action Center..."
-# If (!(Test-Path "HKCU:\Software\Policies\Microsoft\Windows\Explorer")) {
-#   New-Item -Path "HKCU:\Software\Policies\Microsoft\Windows\Explorer" | Out-Null
-# }
-# Set-ItemProperty -Path "HKCU:\Software\Policies\Microsoft\Windows\Explorer" -Name "DisableNotificationCenter" -Type DWord -Value 1
-# Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\PushNotifications" -Name "ToastEnabled" -Type DWord -Value 0
+Write-Host "Disabling Action Center..."
+If (!(Test-Path "HKCU:\Software\Policies\Microsoft\Windows\Explorer")) {
+   New-Item -Path "HKCU:\Software\Policies\Microsoft\Windows\Explorer" | Out-Null
+ }
+Set-ItemProperty -Path "HKCU:\Software\Policies\Microsoft\Windows\Explorer" -Name "DisableNotificationCenter" -Type DWord -Value 1
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\PushNotifications" -Name "ToastEnabled" -Type DWord -Value 0
 
 # Enable Action Center
 # Remove-ItemProperty -Path "HKCU:\Software\Policies\Microsoft\Windows\Explorer" -Name "DisableNotificationCenter"
 # Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\PushNotifications" -Name "ToastEnabled"
 
 # Disable Lock screen
-Write-Host "Disabling Lock screen..."
-If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\Personalization")) {
-  New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\Personalization" | Out-Null
-}
-Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Personalization" -Name "NoLockScreen" -Type DWord -Value 1
+# Write-Host "Disabling Lock screen..."
+# If (!(Test-Path "HKLM:\Software\Policies\Microsoft\Windows\Personalization")) {
+#  New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\Personalization" | Out-Null
+# }
+# Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Personalization" -Name "NoLockScreen" -Type DWord -Value 1
 
 # Enable Lock screen
 # Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Personalization" -Name "NoLockScreen"
@@ -287,8 +287,8 @@ Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Personalizatio
 # Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "NoDriveTypeAutoRun"
 
 #Disable Sticky keys prompt
-Write-Host "Disabling Sticky keys prompt..."
-Set-ItemProperty -Path "HKCU:\Control Panel\Accessibility\StickyKeys" -Name "Flags" -Type String -Value "506"
+# Write-Host "Disabling Sticky keys prompt..."
+# Set-ItemProperty -Path "HKCU:\Control Panel\Accessibility\StickyKeys" -Name "Flags" -Type String -Value "506"
 
 # Enable Sticky keys prompt
 # Set-ItemProperty -Path "HKCU:\Control Panel\Accessibility\StickyKeys" -Name "Flags" -Type String -Value "510"
@@ -430,11 +430,11 @@ Remove-Item -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Explorer\MyCo
 ##########
 
 # Disable OneDrive
- Write-Host "Disabling OneDrive..."
- If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive")) {
-     New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive" | Out-Null
- }
- Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive" -Name "DisableFileSyncNGSC" -Type DWord -Value 1
+# Write-Host "Disabling OneDrive..."
+# If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive")) {
+#     New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive" | Out-Null
+# }
+# Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive" -Name "DisableFileSyncNGSC" -Type DWord -Value 1
 
 # Enable OneDrive
 # Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive" -Name "DisableFileSyncNGSC"
@@ -479,25 +479,25 @@ Get-AppxPackage "Microsoft.BingSports" | Remove-AppxPackage
 #Get-AppxPackage "Microsoft.BingWeather" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.Getstarted" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.MicrosoftOfficeHub" | Remove-AppxPackage
-# Get-AppxPackage "Microsoft.MicrosoftSolitaireCollection" | Remove-AppxPackage
+Get-AppxPackage "Microsoft.MicrosoftSolitaireCollection" | Remove-AppxPackage
 # Get-AppxPackage "Microsoft.Office.OneNote" | Remove-AppxPackage
- Get-AppxPackage "Microsoft.People" | Remove-AppxPackage
- Get-AppxPackage "Microsoft.SkypeApp" | Remove-AppxPackage
+Get-AppxPackage "Microsoft.People" | Remove-AppxPackage
+Get-AppxPackage "Microsoft.SkypeApp" | Remove-AppxPackage
 # Get-AppxPackage "Microsoft.Windows.Photos" | Remove-AppxPackage
 # Get-AppxPackage "Microsoft.WindowsAlarms" | Remove-AppxPackage
- Get-AppxPackage "Microsoft.WindowsCamera" | Remove-AppxPackage
- Get-AppxPackage "microsoft.windowscommunicationsapps" | Remove-AppxPackage
-# Get-AppxPackage "Microsoft.WindowsMaps" | Remove-AppxPackage
+Get-AppxPackage "Microsoft.WindowsCamera" | Remove-AppxPackage
+Get-AppxPackage "microsoft.windowscommunicationsapps" | Remove-AppxPackage
+Get-AppxPackage "Microsoft.WindowsMaps" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.WindowsPhone" | Remove-AppxPackage
 # Get-AppxPackage "Microsoft.WindowsSoundRecorder" | Remove-AppxPackage
- Get-AppxPackage "Microsoft.XboxApp" | Remove-AppxPackage
- Get-AppxPackage "Microsoft.ZuneMusic" | Remove-AppxPackage
- Get-AppxPackage "Microsoft.ZuneVideo" | Remove-AppxPackage
+Get-AppxPackage "Microsoft.XboxApp" | Remove-AppxPackage
+Get-AppxPackage "Microsoft.ZuneMusic" | Remove-AppxPackage
+Get-AppxPackage "Microsoft.ZuneVideo" | Remove-AppxPackage
 # Get-AppxPackage "Microsoft.AppConnector" | Remove-AppxPackage
- Get-AppxPackage "Microsoft.ConnectivityStore" | Remove-AppxPackage
- Get-AppxPackage "Microsoft.Office.Sway" | Remove-AppxPackage
- Get-AppxPackage "Microsoft.Messaging" | Remove-AppxPackage
- Get-AppxPackage "Microsoft.CommsPhone" | Remove-AppxPackage
+Get-AppxPackage "Microsoft.ConnectivityStore" | Remove-AppxPackage
+Get-AppxPackage "Microsoft.Office.Sway" | Remove-AppxPackage
+Get-AppxPackage "Microsoft.Messaging" | Remove-AppxPackage
+Get-AppxPackage "Microsoft.CommsPhone" | Remove-AppxPackage
 Get-AppxPackage "9E2F88E3.Twitter" | Remove-AppxPackage
 Get-AppxPackage "king.com.CandyCrushSodaSaga" | Remove-AppxPackage
 
